@@ -42,8 +42,7 @@ public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILoo
 	public static final PropertyBool EXTRACTS = PropertyBool.create("extracts");
 	
 	private static final float p = 1F / 16F;
-	private static final AxisAlignedBB DUCT_BB = new AxisAlignedBB(1, 1, 1, -1, -1, -1);
-	
+
 	public BlockFluidPipeMk2(Material materialIn, String s) {
 		super(materialIn);
 		this.setUnlocalizedName(s);
@@ -136,7 +135,7 @@ public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILoo
 				}
 			}
 		}
-		return DUCT_BB;
+		return FULL_BLOCK_AABB;
 	}
 	
 	@Override

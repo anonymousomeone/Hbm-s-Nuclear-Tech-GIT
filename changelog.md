@@ -6,4 +6,5 @@
 # fixes
 ```diff
 - potentially fix crash caused by setBlockToAir
+- fix not being able to place fluid ducts if too close
 ```
