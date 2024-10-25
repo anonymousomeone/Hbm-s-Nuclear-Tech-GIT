@@ -31,6 +31,8 @@ public class RenderLaunchPadTier1 extends TileEntitySpecialRenderer<TileEntityLa
         bindTexture(ResourceManager.missile_pad_tex);
 	    ResourceManager.missile_pad.renderAll();
 
+		// TODO: clean this up
+		// like wtf bruh 💀
 		if(te.clearingTimer == 0){
 			int state = te.state;
 			GL11.glTranslated(0, 1, 0);
@@ -182,6 +184,11 @@ public class RenderLaunchPadTier1 extends TileEntitySpecialRenderer<TileEntityLa
 				GL11.glScalef(1.5F, 1.5F, 1.5F);
 				bindTexture(ResourceManager.missileN2_tex);
 				ResourceManager.missileNuclear.renderAll();
+			}
+			if(state == 28) {
+				GL11.glScalef(2F, 2F, 2F);
+				bindTexture(ResourceManager.missileDummy_tex);
+				ResourceManager.missileTaint.renderAll();
 			}
 		}
 

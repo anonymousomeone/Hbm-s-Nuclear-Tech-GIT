@@ -111,6 +111,7 @@ import com.hbm.entity.missile.EntityMissileClusterStrong;
 import com.hbm.entity.missile.EntityMissileCustom;
 import com.hbm.entity.missile.EntityMissileDoomsday;
 import com.hbm.entity.missile.EntityMissileDrill;
+import com.hbm.entity.missile.EntityMissileDummy;
 import com.hbm.entity.missile.EntityMissileEMP;
 import com.hbm.entity.missile.EntityMissileEMPStrong;
 import com.hbm.entity.missile.EntityMissileEndo;
@@ -322,6 +323,7 @@ import com.hbm.render.entity.missile.RenderMissileClusterStrong;
 import com.hbm.render.entity.missile.RenderMissileCustom;
 import com.hbm.render.entity.missile.RenderMissileDoomsday;
 import com.hbm.render.entity.missile.RenderMissileDrill;
+import com.hbm.render.entity.missile.RenderMissileDummy;
 import com.hbm.render.entity.missile.RenderMissileEMP;
 import com.hbm.render.entity.missile.RenderMissileEMPStrong;
 import com.hbm.render.entity.missile.RenderMissileEndo;
@@ -924,6 +926,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMissileDoomsday.class, RenderMissileDoomsday.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMissileTaint.class, RenderMissileTaint.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMissileMicro.class, RenderMissileMicro.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityMissileDummy.class, RenderMissileDummy.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMissileBHole.class, RenderMissileBHole.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlackHole.class, RenderBlackHole.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMissileSchrabidium.class, RenderMissileSchrabidium.FACTORY);
@@ -1085,6 +1088,7 @@ public class ClientProxy extends ServerProxy {
 		registerItemRenderer(ModItems.missile_custom, new ItemRenderMissile(), reg);
 
 		ItemRenderMissileGeneric.init();
+        registerItemRenderer(ModItems.missile_dummy, new ItemRenderMissileGeneric(RenderMissileType.TYPE_TIER0), reg);
 		registerItemRenderer(ModItems.missile_taint, new ItemRenderMissileGeneric(RenderMissileType.TYPE_TIER0), reg);
 		registerItemRenderer(ModItems.missile_micro, new ItemRenderMissileGeneric(RenderMissileType.TYPE_TIER0), reg);
 		registerItemRenderer(ModItems.missile_bhole, new ItemRenderMissileGeneric(RenderMissileType.TYPE_TIER0), reg);

@@ -13,6 +13,8 @@ public interface IBomb {
 	//I'm not even sorry
 	
 	//Drillgon200: Months later (probably) I found this joke and don't understand it. Probably another reference...
+
+	// wtf?
 	
 	void explode(World world, BlockPos pos);
 }

@@ -1088,6 +1088,7 @@ public class ResourceManager {
 	public static final ResourceLocation missileExo_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missiles/missileExo.png");
 	public static final ResourceLocation missileDoomsday_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missiles/missileDoomsday.png");
 	public static final ResourceLocation missileTaint_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missiles/missileMicroTaint.png");
+	public static final ResourceLocation missileDummy_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missiles/missileDummy.png");
 	public static final ResourceLocation missileMicro_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missiles/missileMicro.png");
 	public static final ResourceLocation missileCarrier_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missiles/missileCarrier.png");
 	public static final ResourceLocation missileBooster_tex = new ResourceLocation(RefStrings.MODID, "textures/models/missiles/missileBooster.png");

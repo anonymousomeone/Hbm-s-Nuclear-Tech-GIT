@@ -26,6 +26,12 @@ public class ItemMissileStandard extends Item {
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
+		// dummy
+		if (this == ModItems.missile_dummy) {
+			list.add("§7["+I18nUtil.resolveKey("desc.dmmissile", "I")+"]§r");
+			list.add(TextFormatting.YELLOW + " "+ I18nUtil.resolveKey("desc.radius", 0));
+		}
+
 		//HE
 		if(this == ModItems.missile_generic) {
 			list.add("§7["+I18nUtil.resolveKey("desc.hemissile", "I")+"]§r");
@@ -107,9 +113,6 @@ public class ItemMissileStandard extends Item {
 				list.add(TextFormatting.DARK_GREEN + "["+I18nUtil.resolveKey("trait.fallout")+"]");
 				list.add(" " + TextFormatting.GREEN +I18nUtil.resolveKey("desc.radius",(int)BombConfig.missileRadius*2*(1+BombConfig.falloutRange/100)));
 			}
-		}
-		if(this == ModItems.missile_volcano){
-			list.add("§4["+I18nUtil.resolveKey("desc.tecmissile")+"]§r");
 		}
 		if(this == ModItems.missile_emp_strong){
 			list.add("§3["+I18nUtil.resolveKey("desc.empmissile")+"]§r");

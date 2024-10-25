@@ -14,6 +14,7 @@ import com.hbm.entity.missile.EntityMissileCluster;
 import com.hbm.entity.missile.EntityMissileClusterStrong;
 import com.hbm.entity.missile.EntityMissileDoomsday;
 import com.hbm.entity.missile.EntityMissileDrill;
+import com.hbm.entity.missile.EntityMissileDummy;
 import com.hbm.entity.missile.EntityMissileEMP;
 import com.hbm.entity.missile.EntityMissileEMPStrong;
 import com.hbm.entity.missile.EntityMissileEndo;
@@ -148,6 +149,17 @@ public class LaunchPad extends BlockContainer implements IBomb {
 				if (GeneralConfig.enableExtendedLogging)
 					MainRegistry.logger.log(Level.INFO, "[MISSILE] Tried to launch missile at " + x + " / " + y + " / " + z + " to " + xCoord + " / " + zCoord + "!");
 
+				if (entity.inventory.getStackInSlot(0).getItem() == ModItems.missile_dummy && entity.power >= 75000) {
+					EntityMissileDummy missile = new EntityMissileDummy(world, x + 0.5F, y + 1.5F, z + 0.5F, xCoord, zCoord);
+					missile.setAcceleration(1.5D);
+					if (!world.isRemote)
+						world.spawnEntity(missile);
+					entity.power -= 75000;
+
+					entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
+					world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, HBMSoundHandler.missileTakeoff, SoundCategory.BLOCKS, 2.0F, 1.0F);
+					entity.clearingTimer = TileEntityLaunchPad.clearingDuraction;
+				}
 				if (entity.inventory.getStackInSlot(0).getItem() == ModItems.missile_generic && entity.power >= 75000) {
 					// EntityMissileGeneric missile = new
 					// EntityMissileGeneric(world, xCoord, zCoord, x + 0.5F, y +
@@ -403,17 +415,6 @@ public class LaunchPad extends BlockContainer implements IBomb {
 				if (entity.inventory.getStackInSlot(0).getItem() == ModItems.missile_emp_strong && entity.power >= 75000) {
 					EntityMissileEMPStrong missile = new EntityMissileEMPStrong(world, x + 0.5F, y + 1.5F, z + 0.5F, xCoord, zCoord);
 					missile.setAcceleration(1.25D);
-					if (!world.isRemote)
-						world.spawnEntity(missile);
-					entity.power -= 75000;
-
-					entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-					world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, HBMSoundHandler.missileTakeoff, SoundCategory.BLOCKS, 2.0F, 1.0F);
-					entity.clearingTimer = TileEntityLaunchPad.clearingDuraction;
-				}
-				if(entity.inventory.getStackInSlot(0).getItem() == ModItems.missile_volcano) {
-					EntityMissileVolcano missile = new EntityMissileVolcano(world, x + 0.5F, y + 1.5F, z + 0.5F, xCoord, zCoord);
-					missile.setAcceleration(0.8D);
 					if (!world.isRemote)
 						world.spawnEntity(missile);
 					entity.power -= 75000;

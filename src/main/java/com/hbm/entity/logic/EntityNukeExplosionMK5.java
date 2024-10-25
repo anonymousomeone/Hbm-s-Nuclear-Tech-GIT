@@ -262,8 +262,9 @@ public class EntityNukeExplosionMK5 extends Entity implements IChunkLoader {
 		if(GeneralConfig.enableExtendedLogging && !world.isRemote)
 			MainRegistry.logger.log(Level.INFO, "[NUKE] Initialized explosion at " + x + " / " + y + " / " + z + " with radius " + r + "!");
 
-		if(r == 0)
-			r = 25;
+		// who cooked this
+		// if(r == 0)
+		// 		r = 25;
 
 		EntityNukeExplosionMK5 mk5 = new EntityNukeExplosionMK5(world);
 

@@ -84,10 +84,10 @@ public class TEMissilePacket implements IMessage {
 				type = 24;
 			if(stack.getItem() == ModItems.missile_emp_strong)
 				type = 25;
-			if(stack.getItem() == ModItems.missile_volcano)
-				type = 26;
 			if(stack.getItem() == ModItems.missile_n2)
 				type = 27;
+			if(stack.getItem() == ModItems.missile_dummy)
+				type = 28;
 		}
 	}
 

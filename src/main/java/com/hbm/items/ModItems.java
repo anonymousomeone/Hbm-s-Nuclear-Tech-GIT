@@ -3238,6 +3238,7 @@ public class ModItems {
 	public static final Item designator_manual = new ItemDesignatorManual("designator_manual").setMaxStackSize(1).setCreativeTab(MainRegistry.missileTab);
 	
 	public static final Item missile_assembly = new ItemBase("missile_assembly").setMaxStackSize(1).setCreativeTab(MainRegistry.partsTab);
+	public static final Item missile_dummy = new ItemMissileStandard("missile_dummy").setCreativeTab(MainRegistry.missileTab);
 	public static final Item missile_generic = new ItemMissileStandard("missile_generic").setCreativeTab(MainRegistry.missileTab);
 	public static final Item missile_strong = new ItemMissileStandard("missile_strong").setCreativeTab(MainRegistry.missileTab);
 	public static final Item missile_burst = new ItemMissileStandard("missile_burst").setCreativeTab(MainRegistry.missileTab);
