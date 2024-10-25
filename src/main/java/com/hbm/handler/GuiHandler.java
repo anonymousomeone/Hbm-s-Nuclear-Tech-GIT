@@ -94,6 +94,7 @@ import com.hbm.tileentity.machine.TileEntityMachineTurbine;
 import com.hbm.tileentity.machine.TileEntityMachineTurbofan;
 import com.hbm.tileentity.machine.TileEntityMachineUF6Tank;
 import com.hbm.tileentity.machine.TileEntityMicrowave;
+import com.hbm.tileentity.machine.TileEntityMachineAutocrafter;
 import com.hbm.tileentity.machine.TileEntityNukeFurnace;
 import com.hbm.tileentity.machine.TileEntityReactorControl;
 import com.hbm.tileentity.machine.TileEntityRtgFurnace;
@@ -330,6 +331,11 @@ public class GuiHandler implements IGuiHandler {
 		case ModBlocks.guiID_keyforge:
 			if(entity instanceof TileEntityMachineKeyForge) {
 				return new ContainerMachineKeyForge(player.inventory, (TileEntityMachineKeyForge) entity);
+			}
+			return null;
+		case ModBlocks.guiID_machine_autocrafter:
+			if(entity instanceof TileEntityMachineAutocrafter) {
+				return new ContainerAutocrafter(player.inventory, (TileEntityMachineAutocrafter) entity);
 			}
 			return null;
 		case ModBlocks.guiID_nuke_furnace:
@@ -939,6 +945,11 @@ public class GuiHandler implements IGuiHandler {
 		case ModBlocks.guiID_keyforge:
 			if(entity instanceof TileEntityMachineKeyForge) {
 				return new GUIMachineKeyForge(player.inventory, (TileEntityMachineKeyForge) entity);
+			}
+			return null;
+		case ModBlocks.guiID_machine_autocrafter:
+			if(entity instanceof TileEntityMachineAutocrafter) {
+				return new GUIAutocrafter(player.inventory, (TileEntityMachineAutocrafter) entity);
 			}
 			return null;
 		case ModBlocks.guiID_nuke_furnace:
