@@ -235,7 +235,8 @@ public class ExplosionNukeRayBatched {
 		int blocksRemoved = 0;
 		while(index > -1) {
 			pos.setPos(((index >> 4) % 16) + chunkX, 255 - (index >> 8), (index % 16) + chunkZ);
-			world.setBlockToAir(pos);
+//			world.setBlockToAir(pos);
+			world.setBlockState(pos, Blocks.AIR.getDefaultState());
 			index = hitArray.nextSetBit(index+1);
 			blocksRemoved++;
 			if(blocksRemoved % 256 == 0 && System.currentTimeMillis()+1 > start + time){
