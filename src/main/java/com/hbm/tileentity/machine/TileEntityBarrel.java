@@ -1,5 +1,6 @@
 package com.hbm.tileentity.machine;
 
+import api.hbm.energy.IEnergyConnector;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.FluidTypeHandler;
@@ -19,6 +20,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -165,6 +167,32 @@ public class TileEntityBarrel extends TileEntityMachineBase implements ITickable
 		tank.readFromNBT(compound);
 		super.readFromNBT(compound);
 	}
+
+	public void writeNBT(NBTTagCompound nbt) {
+		NBTTagCompound data = new NBTTagCompound();
+		data.setShort("mode", mode);
+		data.setInteger("cap", tank.getCapacity());
+		tank.writeToNBT(nbt);
+		nbt.setTag("NBT_PERSISTENT_KEY", data);
+	}
+
+	public void readNBT(NBTTagCompound nbt) {
+		NBTTagCompound data = nbt.getCompoundTag("NBT_PERSISTENT_KEY");
+		this.mode = data.getShort("mode");
+		if(tank == null || tank.getCapacity() <= 0)
+			tank = new FluidTank(data.getInteger("cap"));
+
+		Fluid fluid = FluidRegistry.getFluid(nbt.getString("FluidName"));
+		if (fluid == null) { return; } // when tank is empty
+
+		FluidStack fluidStack = new FluidStack(
+				fluid,
+				nbt.getInteger("Amount")
+		);
+
+		tank.setFluid(fluidStack);
+	}
+
 	
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
