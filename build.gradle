@@ -1,18 +1,9 @@
 buildscript {
     repositories {
-        maven { url = "https://maven.minecraftforge.net/" }
-        maven { url = "https://files.minecraftforge.net/maven" }
         mavenCentral()
         maven {
-    // location of the maven that hosts JEI files
-    name = "Progwml6 maven"
-    url = "https://dvs1.progwml6.com/files/maven/"
-  }
-  maven {
-    // location of a maven mirror for JEI files, as a fallback
-    name = "ModMaven"
-    url = "https://modmaven.k-4u.nl"
-  }
+            url = "https://maven.minecraftforge.net/"
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
@@ -21,7 +12,9 @@ buildscript {
         
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
+// we HATE eclipse users 🤬
+//apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
 version = '2.0.2'
@@ -71,34 +64,6 @@ minecraft {
     }
 }
 
-repositories {
-    maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
-    }
-    maven { // CraftTweaker
-        name = "jared maven"
-        url = "http://maven.blamejared.com/"
-    }
-    maven { //GC
-        name = "galacticraft"
-        url = "https://maven.galacticraft.net/repository/legacy/"
-    }
-    maven { //  baubles
-        name = "mcmoddev"
-        url = "https://maven.mcmoddev.com"
-    }
-    maven {
-        name = 'CoFH Maven'
-        url = 'https://maven.covers1624.net'
-    }
-}
 
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
