@@ -46,6 +46,23 @@ public class ResourceManager {
 	public static final IModelCustom assembler_slider = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/assembler_new_slider.obj"));
 	public static final IModelCustom assembler_arm = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/assembler_new_arm.obj"));
 
+	//Demon core
+	public static final IModelCustom demon_lamp = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/blocks/demon_lamp.obj"));
+	public static final ResourceLocation demon_lamp_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/demon_lamp.png");
+
+	// that one sphere model that everyone uses
+	public static final IModelCustom sphere = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/sphere.obj"));
+
+	// balls
+	public static final IModelCustom capsule = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/mobs/capsule.obj"));
+
+	// worm
+	public static final IModelCustom worm_prime_head = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/mobs/bot_prime_head.obj"));
+	public static final ResourceLocation worm_prime_head_tex = new ResourceLocation(RefStrings.MODID, "textures/entity/mark_zero_head.png");
+	public static final IModelCustom worm_prime_body = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/mobs/bot_prime_body.obj"));
+	public static final ResourceLocation worm_prime_body_texture = new ResourceLocation(RefStrings.MODID, "textures/entity/mark_zero_body.png");
+
+
 	//Chemplant
 	public static final IModelCustom chemplant_new = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/chemplant_main_new.obj"));
 	public static final IModelCustom chemplant_body = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/chemplant_new_body.obj"));
@@ -362,6 +379,7 @@ public class ResourceManager {
 	public static final IModelCustom bomb_fleija = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/bombs/Fleija.obj"));
 	public static final IModelCustom bomb_multi = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/bombs/BombGeneric.obj"));
 	public static final IModelCustom dud = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/bombs/BalefireCrashed.obj"));
+
 
 	//Landmines
 	public static final IModelCustom mine_ap = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/mine_ap.obj"));
@@ -1014,6 +1032,7 @@ public class ResourceManager {
 	//Blast
 	public static final ResourceLocation tomblast = new ResourceLocation(RefStrings.MODID, "textures/models/explosion/tomblast.png");
 	public static final ResourceLocation dust = new ResourceLocation(RefStrings.MODID, "textures/models/explosion/dust.png");
+	public static final ResourceLocation fleija_blast_tex = new ResourceLocation(RefStrings.MODID, "textures/models/explosion/BlastFleija.png");
 
 	//Boxcar
 	public static final ResourceLocation boxcar_tex = new ResourceLocation(RefStrings.MODID, "textures/models/misc/boxcar.png");

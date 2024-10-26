@@ -1,11 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.main.ResourceManager;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.mob.botprime.EntityBOTPrimeHead;
-import com.hbm.hfr.render.loader.HFRWavefrontObject;
-import com.hbm.lib.RefStrings;
-import com.hbm.render.amlfrom1710.IModelCustom;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -15,10 +13,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderWormHead extends Render<EntityBOTPrimeHead> {
 
-	public static final IRenderFactory<EntityBOTPrimeHead> FACTORY = man -> new RenderWormHead(man);
-	
-	public static final IModelCustom body = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/mobs/bot_prime_head.obj"));
-	public static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID, "textures/entity/mark_zero_head.png");
+	public static final IRenderFactory<EntityBOTPrimeHead> FACTORY = RenderWormHead::new;
 	
 	public RenderWormHead(RenderManager rendermanagerIn) {
 		super(rendermanagerIn);
@@ -36,7 +31,7 @@ public class RenderWormHead extends Render<EntityBOTPrimeHead> {
 		this.bindEntityTexture(entity);
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		GlStateManager.disableCull();
-		body.renderAll();
+		ResourceManager.worm_prime_head.renderAll();
 		GlStateManager.enableCull();
 		GlStateManager.shadeModel(GL11.GL_FLAT);
 
@@ -45,7 +40,7 @@ public class RenderWormHead extends Render<EntityBOTPrimeHead> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityBOTPrimeHead entity) {
-		return texture;
+		return ResourceManager.worm_prime_head_tex;
 	}
 
 }

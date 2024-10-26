@@ -2,6 +2,7 @@ package com.hbm.render.entity;
 
 import java.util.Random;
 
+import com.hbm.main.ResourceManager;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.effect.EntityBlackHole;
@@ -33,15 +34,12 @@ public class RenderBlackHole extends Render<EntityBlackHole> {
 		return new RenderBlackHole(man);
 	};
 
-	protected static final ResourceLocation objTesterModelRL = new ResourceLocation(RefStrings.MODID, "models/Sphere.obj");
-	protected IModelCustom blastModel;
 	protected ResourceLocation hole = new ResourceLocation(RefStrings.MODID, "textures/models/explosion/BlackHole.png");
 	protected ResourceLocation swirl = new ResourceLocation(RefStrings.MODID, "textures/entity/bhole.png");
 	protected ResourceLocation disc = new ResourceLocation(RefStrings.MODID, "textures/entity/bholeDisc.png");
 
 	protected RenderBlackHole(RenderManager renderManager){
 		super(renderManager);
-		blastModel = AdvancedModelLoader.loadModel(objTesterModelRL);
 	}
 
 	@Override
@@ -58,7 +56,7 @@ public class RenderBlackHole extends Render<EntityBlackHole> {
 		GL11.glScalef(size, size, size);
 
 		bindTexture(hole);
-		blastModel.renderAll();
+		ResourceManager.sphere.renderAll();
 
 		if(entity instanceof EntityVortex) {
 			renderSwirl(entity, partialTicks);

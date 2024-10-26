@@ -1,5 +1,6 @@
 package com.hbm.render.entity;
 
+import com.hbm.main.ResourceManager;
 import org.lwjgl.opengl.GL11;
 import com.hbm.entity.effect.EntityCloudFleija;
 import com.hbm.lib.RefStrings;
@@ -14,19 +15,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderCloudFleija extends Render<EntityCloudFleija> {
-
-	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */RefStrings.MODID, "models/Sphere.obj");
-	private IModelCustom blastModel;
-    private ResourceLocation blastTexture;
     public float scale = 0;
     public float ring = 0;
     
-    public static final IRenderFactory<EntityCloudFleija> FACTORY = (RenderManager man) -> {return new RenderCloudFleija(man);};
+    public static final IRenderFactory<EntityCloudFleija> FACTORY = RenderCloudFleija::new;
 	
 	protected RenderCloudFleija(RenderManager renderManager) {
 		super(renderManager);
-		blastModel = AdvancedModelLoader.loadModel(objTesterModelRL);
-    	blastTexture = new ResourceLocation(RefStrings.MODID, "textures/models/explosion/BlastFleija.png");
     	scale = 0;
 	}
 	
@@ -46,8 +41,8 @@ public class RenderCloudFleija extends Render<EntityCloudFleija> {
         GL11.glScalef(s, s, s);
         
         
-        bindTexture(blastTexture);
-        blastModel.renderAll();
+        bindTexture(ResourceManager.fleija_blast_tex);
+        ResourceManager.sphere.renderAll();
        /* ResourceManager.normal_fadeout.use();
         GL20.glUniform4f(GL20.glGetUniformLocation(ResourceManager.normal_fadeout.getShaderId(), "color"), 0.2F*2, 0.92F*2, 0.83F*2, 1F);
         GL20.glUniform1f(GL20.glGetUniformLocation(ResourceManager.normal_fadeout.getShaderId(), "fadeout_mult"), 2.5F);
@@ -70,7 +65,7 @@ public class RenderCloudFleija extends Render<EntityCloudFleija> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCloudFleija entity) {
-		return blastTexture;
+		return ResourceManager.fleija_blast_tex;
 	}
 
 }

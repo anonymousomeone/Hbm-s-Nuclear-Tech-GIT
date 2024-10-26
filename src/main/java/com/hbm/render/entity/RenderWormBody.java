@@ -1,11 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.main.ResourceManager;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.mob.botprime.EntityBOTPrimeBody;
-import com.hbm.hfr.render.loader.HFRWavefrontObject;
-import com.hbm.lib.RefStrings;
-import com.hbm.render.amlfrom1710.IModelCustom;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -16,9 +14,6 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 public class RenderWormBody extends Render<EntityBOTPrimeBody> {
 
 	public static final IRenderFactory<EntityBOTPrimeBody> FACTORY = man -> new RenderWormBody(man);
-	
-	public static final IModelCustom body = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/mobs/bot_prime_body.obj"));
-	public static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID, "textures/entity/mark_zero_body.png");
 
 	protected RenderWormBody(RenderManager renderManager) {
 		super(renderManager);
@@ -35,7 +30,7 @@ public class RenderWormBody extends Render<EntityBOTPrimeBody> {
 		this.bindEntityTexture(entity);
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		GlStateManager.disableCull();
-		body.renderAll();
+		ResourceManager.worm_prime_body.renderAll();
 		GlStateManager.shadeModel(GL11.GL_FLAT);
 		GlStateManager.enableCull();
 
@@ -44,7 +39,7 @@ public class RenderWormBody extends Render<EntityBOTPrimeBody> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityBOTPrimeBody entity) {
-		return texture;
+		return ResourceManager.worm_prime_body_texture;
 	}
 	
 }
