@@ -174,13 +174,14 @@ public class RenderTorex extends Render<EntityNukeTorex> {
 		}
 
 		tess.draw();
+		GL11.glPopMatrix();
 
 		GL11.glDepthMask(true);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		RenderHelper.enableStandardItemLighting();
 		GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ZERO);
 		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		RenderHelper.enableStandardItemLighting();
 	}
 
 	private void tessellateCloudlet(BufferBuilder buf, double posX, double posY, double posZ, Cloudlet cloud, float partialTicks) {
