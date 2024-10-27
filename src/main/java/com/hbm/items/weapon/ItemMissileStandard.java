@@ -114,6 +114,9 @@ public class ItemMissileStandard extends Item {
 				list.add(" " + TextFormatting.GREEN +I18nUtil.resolveKey("desc.radius",(int)BombConfig.missileRadius*2*(1+BombConfig.falloutRange/100)));
 			}
 		}
+		if(this == ModItems.missile_volcano){
+			list.add("§4["+I18nUtil.resolveKey("desc.tecmissile")+"]§r");
+		}
 		if(this == ModItems.missile_emp_strong){
 			list.add("§3["+I18nUtil.resolveKey("desc.empmissile")+"]§r");
 			list.add(TextFormatting.AQUA + " "+ I18nUtil.resolveKey("desc.radius", 100));
