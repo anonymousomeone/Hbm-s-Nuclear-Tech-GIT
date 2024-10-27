@@ -43,7 +43,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                ntm {
+                hbm {
                     source sourceSets.main
                 }
             }
@@ -54,7 +54,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                ntm {
+                hbm {
                     source sourceSets.main
                 }
             }
