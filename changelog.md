@@ -4,6 +4,7 @@
 + barrels now save their contents when broken
 + broken ahh autocrafter
 + nuke flares now are larger and last for longer
++ tauon turret no longer breaks eardrums
 ```
 # fixes
 ```diff
