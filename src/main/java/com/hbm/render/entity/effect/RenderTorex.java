@@ -39,7 +39,7 @@ public class RenderTorex extends Render<EntityNukeTorex> {
 	private static final ResourceLocation flare = new ResourceLocation(RefStrings.MODID + ":textures/particle/flare.png");
 
 	public static final int flashBaseDuration = 30;
-	public static final int flareBaseDuration = 100;
+	public static final int flareBaseDuration = 200;
 
 	protected RenderTorex(RenderManager renderManager){
 		super(renderManager);
@@ -170,7 +170,7 @@ public class RenderTorex extends Render<EntityNukeTorex> {
 			float x = (float) (rand.nextGaussian() * 0.5F * cloud.rollerSize);
 			float y = (float) (rand.nextGaussian() * 0.5F * cloud.rollerSize);
 			float z = (float) (rand.nextGaussian() * 0.5F * cloud.rollerSize);
-			tessellateFlare(buf, x, y + cloud.coreHeight, z, (float) (10 * cloud.rollerSize), alpha, partialTicks);
+			tessellateFlare(buf, x, y + cloud.coreHeight, z, (float) (20 * cloud.rollerSize), alpha, partialTicks);
 		}
 
 		tess.draw();
