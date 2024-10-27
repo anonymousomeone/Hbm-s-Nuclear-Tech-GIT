@@ -43,6 +43,9 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+            sourceSets.all {
+                it.output.resourcesDir = it.output.classesDirs.getFiles().iterator().next()
+            }
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -87,7 +90,7 @@ dependencies {
     // compile against the JEI API but do not include it at runtime
     compileOnly files("libs/jei_${version_mc}-${version_jei}.jar")
     // at runtime, use the full JEI jar
-    runtimeOnly files("libs/jei_${version_mc}-${version_jei}.jar")
+//    runtimeOnly files("libs/jei_${version_mc}-${version_jei}.jar")
 
     //compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     //runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
@@ -121,8 +124,6 @@ jar {
 jar.finalizedBy('reobfJar') 
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
-
-sourceSets.main.resources { srcDir 'src/main/resources' }
 
 publishing {
     publications {
