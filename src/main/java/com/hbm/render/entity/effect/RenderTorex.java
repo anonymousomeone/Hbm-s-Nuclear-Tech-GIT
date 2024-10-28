@@ -170,7 +170,7 @@ public class RenderTorex extends Render<EntityNukeTorex> {
 			float x = (float) (rand.nextGaussian() * 0.5F * cloud.rollerSize);
 			float y = (float) (rand.nextGaussian() * 0.5F * cloud.rollerSize);
 			float z = (float) (rand.nextGaussian() * 0.5F * cloud.rollerSize);
-			tessellateFlare(buf, x, y + cloud.coreHeight, z, (float) (20 * cloud.rollerSize), alpha, partialTicks);
+			tessellateFlare(buf, x, y + cloud.coreHeight, z, (float) (10 * cloud.rollerSize), alpha, partialTicks);
 		}
 
 		tess.draw();
