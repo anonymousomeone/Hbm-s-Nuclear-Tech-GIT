@@ -454,6 +454,7 @@ container.anvil=Tier %s Anvil
 container.arcFurnace=Arc Furnace
 container.armorTable=Armor Modification Table
 container.assembler=Assembly Machine
+container.autocrafter=Autocrafter
 container.barrel=Barrel
 container.bat9000=Big-Ass Tank 9000
 container.battery=Energy Storage

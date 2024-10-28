@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.ItemAir;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -23,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
@@ -33,7 +35,7 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
     public static final String MODE_WILDCARD = "wildcard";
     public String[] modes = new String[9];
 
-    public List<IRecipe> recipes = new ArrayList();
+    public List<IRecipe> recipes = new ArrayList<>();
     public int recipeIndex;
     public int recipeCount;
 
@@ -50,6 +52,8 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
             return;
         }
 
+		// forge gets pissy and throws errors in console if you pass it an "invalid stack"
+		if (stack.getCount() == 0) { return; }
         List<String> names = ItemStackUtil.getOreDictNames(stack);
 
         if(iterateAndCheck(names, i ,"ingot")) return;
@@ -124,7 +128,7 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
         if(!this.recipes.isEmpty()) {
             inventory.setStackInSlot(9,this.recipes.get(this.recipeIndex).getCraftingResult(getTemplateGrid()));
         } else {
-            inventory.setStackInSlot(9,null);
+            inventory.setStackInSlot(9,ItemStack.EMPTY);
         }
     }
 
@@ -139,7 +143,7 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
     public void update() {
         if(!world.isRemote) {
             this.power = Library.chargeTEFromItems(inventory, 20, power, maxPower);
-            for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) this.trySubscribe(world, pos, dir);
+			this.updateStandardConnections(world, pos);
 
             if(!this.recipes.isEmpty() && this.power >= 100) {
                 IRecipe recipe = this.recipes.get(recipeIndex);
@@ -147,32 +151,32 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
                 if(recipe.matches(this.getRecipeGrid(),this.world)) {
                     ItemStack stack = recipe.getCraftingResult(this.getRecipeGrid());
 
-                    if(stack != null) {
+                    if(stack != ItemStack.EMPTY) {
                         boolean didCraft = false;
-                        ItemStack stackSlot = inventory.getStackInSlot(19);
-                        if(stackSlot.isEmpty()) {
-                            stackSlot = stack.copy();
-                            didCraft = true;
-                        } else if(stackSlot.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, stackSlot) && stackSlot.getCount() + stack.getCount() <= stackSlot.getMaxStackSize()) {
-                            stackSlot.grow(stack.getCount());
-                            didCraft = true;
-                        }
+
+						if(this.inventory.getStackInSlot(19) == ItemStack.EMPTY) {
+							inventory.setStackInSlot(19, stack.copy());
+							didCraft = true;
+						} else if(this.inventory.getStackInSlot(19).isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, this.inventory.getStackInSlot(19)) && this.inventory.getStackInSlot(19).getCount() + stack.getCount() <= this.inventory.getStackInSlot(19).getMaxStackSize()) {
+							inventory.getStackInSlot(19).setCount(inventory.getStackInSlot(19).getCount() + stack.getCount());
+							didCraft = true;
+						}
 
                         if(didCraft) {
                             for(int i = 10; i < 19; i++) {
                                 ItemStack ingredient = inventory.getStackInSlot(i);
 
-                                if(ingredient != null) {
+                                if(ingredient != ItemStack.EMPTY) {
                                     inventory.getStackInSlot(i).shrink(1);
 
                                     if(inventory.getStackInSlot(i).isEmpty() && ingredient.getItem().hasContainerItem(ingredient)) {
                                         ItemStack container = ingredient.getItem().getContainerItem(ingredient);
 
-                                        if(container != null && container.isItemStackDamageable() && container.getItemDamage() > container.getMaxDamage()) {
+                                        if(container != ItemStack.EMPTY && container.isItemStackDamageable() && container.getItemDamage() > container.getMaxDamage()) {
                                             continue;
                                         }
 
-                                        inventory.setStackInSlot(i,container);
+                                        inventory.setStackInSlot(i, container);
                                     }
                                 }
                             }
@@ -219,16 +223,14 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
 		if(!this.recipes.isEmpty()) {
 			inventory.setStackInSlot(9,this.recipes.get(this.recipeIndex).getCraftingResult(getTemplateGrid()));
 		} else {
-			inventory.setStackInSlot(9, null);
+			inventory.setStackInSlot(9, ItemStack.EMPTY);
 		}
 	}
 
     public List<IRecipe> getMatchingRecipes(InventoryCrafting grid) {
 		List<IRecipe> recipes = new ArrayList();
 		
-		for(Object o : CraftingManager.getRemainingItems(grid, world)) {
-			IRecipe recipe = (IRecipe) o;
-			
+		for(IRecipe recipe : ForgeRegistries.RECIPES.getValues()) {
 			if(recipe.matches(grid, world)) {
 				recipes.add(recipe);
 			}
@@ -253,12 +255,12 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
 			ItemStack filter = inventory.getStackInSlot(i - 10);
 			String mode = modes[i - 10];
 			
-			if(filter == null || mode == null || mode.isEmpty()) return true;
-			
+			if(filter == ItemStack.EMPTY || mode == null || mode.isEmpty()) return true;
+
 			if(isValidForFilter(filter, mode, stack)) {
 				return false;
 			}
-			
+
 			return true;
 		}
 		
@@ -281,12 +283,12 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
 			return false;
 		
 		//let's find all slots that this item could potentially go in
-		List<Integer> validSlots = new ArrayList();
+		List<Integer> validSlots = new ArrayList<>();
 		for(int i = 0; i < 9; i++) {
 			ItemStack filter = inventory.getStackInSlot(i);
 			String mode = modes[i];
 			
-			if(filter == null || mode == null || mode.isEmpty()) continue;
+			if(filter == ItemStack.EMPTY || mode == null || mode.isEmpty()) continue;
 			
 			if(isValidForFilter(filter, mode, stack)) {
 				validSlots.add(i + 10);
@@ -310,7 +312,7 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
 		for(Integer i : validSlots) {
 			ItemStack valid = inventory.getStackInSlot(i);
 			
-			if(valid == null) return false; //null? since slots[slot] is not null by now, this other slot needs the item more
+			if(valid == ItemStack.EMPTY) return false; //null? since slots[slot] is not null by now, this other slot needs the item more
 			if(!(valid.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(valid, stack))) continue; //different item anyway? out with it
 			
 			//if there is another slot that actually does need the same item more, cancel
@@ -354,14 +356,13 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
 		}
 		
 		public void loadInventory(ItemStackHandler slot, int start) {
-			ItemStack[] slots = invSlots(slot);
 			for(int i = 0; i < this.getSizeInventory(); i++) {
-				this.setInventorySlotContents(i, slots[start + i]);
+				this.setInventorySlotContents(i, slot.getStackInSlot(start + i));
 			}
 		}
 
 		public ItemStack[] invSlots(ItemStackHandler inv) {
-			ItemStack returnStack[] = new ItemStack[21];
+			ItemStack[] returnStack = new ItemStack[21];
 			for(int i = 0; i <= inv.getSlots(); i++) {
 				returnStack[i] = inv.getStackInSlot(i);
 			}
@@ -369,7 +370,7 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
 		}
 		
 		public void clear() {
-			for(int i = 0; i < this.getSizeInventory(); i++) this.setInventorySlotContents(i, null);
+			for(int i = 0; i < this.getSizeInventory(); i++) this.setInventorySlotContents(i, ItemStack.EMPTY);
 		}
 		
 		public static class ContainerBlank extends Container {
@@ -415,7 +416,7 @@ public class TileEntityMachineAutocrafter extends TileEntityMachineBase implemen
 		if(!this.recipes.isEmpty()) {
             inventory.setStackInSlot(9,this.recipes.get(this.recipeIndex).getCraftingResult(getTemplateGrid()));
 		} else {
-			inventory.setStackInSlot(9, null);
+			inventory.setStackInSlot(9, ItemStack.EMPTY);
 		}
 	}
 	

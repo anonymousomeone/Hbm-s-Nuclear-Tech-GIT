@@ -8,8 +8,11 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -17,6 +20,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import java.util.Random;
 
@@ -60,8 +65,25 @@ public class MachineAutocrafter extends BlockContainer {
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        if(!keepInventory)
-            InventoryHelper.dropInventoryItems(worldIn, pos, worldIn.getTileEntity(pos));
+        TileEntity tile = worldIn.getTileEntity(pos);
+
+        if(tile instanceof TileEntityMachineAutocrafter) {
+            IItemHandler inventory = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+
+            for(int i1 = 10; i1 < inventory.getSlots(); ++i1) {
+                ItemStack itemstack = inventory.getStackInSlot(i1);
+
+                if(itemstack != ItemStack.EMPTY) {
+                    InventoryHelper.spawnItemStack(worldIn, pos, itemstack);
+                    itemstack.setCount(0);
+                }
+            }
+
+            //worldIn.func_147453_f(x, y, z, block);
+			//this is a stupid name
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
+
         super.breakBlock(worldIn, pos, state);
     }
 
