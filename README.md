@@ -20,11 +20,13 @@ Every contribution is very much appreciated by me and the players.
 
 Download the repository, then open a shell prompt in that folder, then type the following:
 
-`.\gradlew build`
+`./gradlew build`
 
 Press enter.
 
 Now just wait for the build to finish and the new Jar file will be in `Hbm-s-Nuclear-Tech-GIT\build\libs`.
+
+To setup mcp mappings for intellij simply run `./gradlew idea`.
 
 
 #### Discords:

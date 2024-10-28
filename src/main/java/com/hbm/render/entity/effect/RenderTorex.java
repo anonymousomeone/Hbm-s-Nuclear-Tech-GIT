@@ -39,7 +39,7 @@ public class RenderTorex extends Render<EntityNukeTorex> {
 	private static final ResourceLocation flare = new ResourceLocation(RefStrings.MODID + ":textures/particle/flare.png");
 
 	public static final int flashBaseDuration = 30;
-	public static final int flareBaseDuration = 100;
+	public static final int flareBaseDuration = 200;
 
 	protected RenderTorex(RenderManager renderManager){
 		super(renderManager);
@@ -174,13 +174,14 @@ public class RenderTorex extends Render<EntityNukeTorex> {
 		}
 
 		tess.draw();
+		GL11.glPopMatrix();
 
 		GL11.glDepthMask(true);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		RenderHelper.enableStandardItemLighting();
 		GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ZERO);
 		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		RenderHelper.enableStandardItemLighting();
 	}
 
 	private void tessellateCloudlet(BufferBuilder buf, double posX, double posY, double posZ, Cloudlet cloud, float partialTicks) {

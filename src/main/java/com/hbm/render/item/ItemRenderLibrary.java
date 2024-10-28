@@ -1127,8 +1127,8 @@ public class ItemRenderLibrary {
 			}
 			public void renderCommon() {
 				GlStateManager.shadeModel(GL11.GL_SMOOTH);
-				bindTexture(RenderDemonLamp.tex);
-				RenderDemonLamp.demon_lamp.renderAll();
+				bindTexture(ResourceManager.demon_lamp_tex);
+				ResourceManager.demon_lamp.renderAll();
 				GlStateManager.shadeModel(GL11.GL_FLAT);
 			}});
 

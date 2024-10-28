@@ -1,5 +1,6 @@
 package com.hbm.render.entity.effect;
 
+import com.hbm.main.ResourceManager;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.effect.EntityBlackHole;
@@ -37,7 +38,7 @@ public class RenderQuasar extends RenderBlackHole {
 		GL11.glScalef(size, size, size);
 
 		bindTexture(hole);
-		blastModel.renderAll();
+		ResourceManager.sphere.renderAll();
 		
 		renderDisc(entity, partialTicks);
 		renderJets(entity, partialTicks);

@@ -1,10 +1,8 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.main.ResourceManager;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.hfr.render.loader.HFRWavefrontObject;
-import com.hbm.lib.RefStrings;
-import com.hbm.render.amlfrom1710.IModelCustom;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.tileentity.machine.TileEntityDemonLamp;
 
@@ -15,13 +13,8 @@ import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
 
 public class RenderDemonLamp extends TileEntitySpecialRenderer<TileEntityDemonLamp> {
-
-	public static final IModelCustom demon_lamp = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/blocks/demon_lamp.obj"));
-	public static final ResourceLocation tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/demon_lamp.png");
-	
 	@Override
 	public boolean isGlobalRenderer(TileEntityDemonLamp te){
 		return true;
@@ -35,8 +28,8 @@ public class RenderDemonLamp extends TileEntitySpecialRenderer<TileEntityDemonLa
 		GlStateManager.enableCull();
 
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
-		bindTexture(tex);
-		demon_lamp.renderAll();
+		bindTexture(ResourceManager.demon_lamp_tex);
+		ResourceManager.demon_lamp.renderAll();
 		
 		Tessellator tess = Tessellator.getInstance();
 		BufferBuilder buf = tess.getBuffer();

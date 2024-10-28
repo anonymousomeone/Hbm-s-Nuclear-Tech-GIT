@@ -46,4 +46,9 @@ public class InventoryHelper {
             worldIn.spawnEntity(entityitem);
         }
     }
+
+    // trolled
+    public static void spawnItemStack(World worldIn, BlockPos pos, ItemStack stack) {
+        spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack);
+    }
 }

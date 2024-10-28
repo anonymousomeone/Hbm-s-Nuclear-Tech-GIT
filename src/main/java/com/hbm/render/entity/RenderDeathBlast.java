@@ -1,5 +1,6 @@
 package com.hbm.render.entity;
 
+import com.hbm.main.ResourceManager;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.logic.EntityDeathBlast;
@@ -22,10 +23,8 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderDeathBlast extends Render<EntityDeathBlast> {
 
-	public static final IRenderFactory<EntityDeathBlast> FACTORY = (RenderManager man) -> {return new RenderDeathBlast(man);};
-	
-	private static final IModelCustom sphere = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/sphere.obj"));
-	
+	public static final IRenderFactory<EntityDeathBlast> FACTORY = RenderDeathBlast::new;
+
 	protected RenderDeathBlast(RenderManager renderManager) {
 		super(renderManager);
 	}
@@ -104,14 +103,14 @@ public class RenderDeathBlast extends Render<EntityDeathBlast> {
 		GlStateManager.enableBlend();
         GL11.glScaled(scale, scale, scale);
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        sphere.renderAll();
+		ResourceManager.sphere.renderAll();
 
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         GL11.glScaled(1.25, 1.25, 1.25);
         GlStateManager.color(1.0F, 0, 0, alpha * 0.125F);
         
         for(int i = 0; i < 8; i++) {
-        	sphere.renderAll();
+        	ResourceManager.sphere.renderAll();
             GL11.glScaled(1.05, 1.05, 1.05);
         }
         
