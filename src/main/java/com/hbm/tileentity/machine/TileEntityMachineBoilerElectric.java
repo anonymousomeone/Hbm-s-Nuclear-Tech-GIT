@@ -153,7 +153,7 @@ public class TileEntityMachineBoilerElectric extends TileEntityMachineBase imple
 			}
 
 			if(power > 0) {
-				heat += Math.min(((double) power / (double) maxPower * 300), 150);
+				heat += (int) Math.min((((double) power / 150.0) * 100.0), 150);
 				power = Math.max(power-150, 0);
 			} else {
 				heat -= 100;

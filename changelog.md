@@ -11,4 +11,5 @@
 - potentially fix crash caused by setBlockToAir
 - fix not being able to place fluid ducts if too close
 - fixed nuke explosions causing your hand/held item to appear ghostly
+- electric boilers can now run at reduced powers
 ```
